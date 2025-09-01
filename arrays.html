@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DArrays - Cheat sheets</title>
+</head>
+<body>
+    <h1>Arrayer og metoder</h1>
+    <p>Dette juksearket fungerer best med konsollen åpen</p>
+    <h3>Filmarray (<span id="moviecount">0</span>filmer)</h3>
+    <p>Film på index <span id="movieindex">#</span>: <span id="movietitle">ingen film funnet</span></p>
+    <script>
+        const moviearray = ["Ringenes herre", "Star Wars Epiode 1: Phantom Menace", "Titanic", "Nobody", "John Wich 4",
+         "Howls Moving Castle", "Look Back", "No country for old men", "Don`t Mess with the Zohan"]
+         //sortere alfabetisk fra A-Å
+         //moviearray.sort()
+         // Reversere Å-A
+         //moviearray.reverse()
+
+         // sortere på en linje isteden
+         
+         //legg til filmtittel i listen
+         moviearray.push("Tetris")
+         // sortere og reversere
+         moviearray.sort().reverse()
+         // Fjerne filmtittelfra listen
+         moviearray.splice(3, 1)
+         // finne en filmtittel i listen
+         const movieexist = moviearray.includes("Tetris")
+         console.log("finnes Tetris?", movieexist)
+
+         console.log(moviearray) 
+         // tallsortering
+         const numbersarray = [32, 31, 6, 4, 194, 111, 1000]
+
+         numbersarray.sort(function(a, b) {return a-b})
+
+         numbersarray.sort(function(a, b) {return b-a})
+
+         console.log(numbersarray)
+
+         document.getElementById("moviecount").innerHTML = moviearray.length
+         const index = 4
+         document.getElementById("movieindex").innerHTML = index
+
+         document.getElementById("movietitle").innerHTML = moviearray[index]
+
+    </script>
+</body>
+</html>

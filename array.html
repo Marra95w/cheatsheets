@@ -6,36 +6,67 @@
     <title>Array</title>
 </head>
 <body>
+    <ul id="profiles"></ul>
     <script>
-        const handleliste = ["Middag", "Brød", "Melk", "Egg", "Bacon",]
-
-
-        const produkter = [
+        const lecturers = [
             {
-                is: "1",
-                name: "Pokemon",
-                year: 1995 
+                name: "Marius Akerbæk", 
+                office: "D1_016",
+                email: "toremake@hiof.no",
+                birthyear: 1983,
             },
             {
-                id: "2",
-                name: "valheim",
-                year: 2021
-
+                name: "Daniela Blauhut", 
+                office: "D1_015",
+                email: "danielbh@hiof.no",
+                birthyear: 1977,
             },
             {
-                id: "3",
-                name: "Red Dead Redemtion 2",
-                year: 2018
-            }
+                name: "Ann Charlott Karlsen", 
+                office: "D1_062",
+                email: "acarlseh@hiof.no",
+                birthyear: 1992,
+            },
+            {
+                name: "Ole Edvard Ørebæk", 
+                office: "D1_061A",
+                email: "oledvo@hiof.no",
+                birthyear: 1993,
+            },
+            {
+                name: "Thor Andreas Holberg Murtnes-Hatlestad", 
+                office: "Hjemmekontor",
+                email: "thoraho@hiof.no",
+                birthyear: 1990,
+            },
         ]
 
-        produkter.map((prod) => {
-            console.log(prod.id)
-        
+        const profiles = document.getElementById("profiles")
 
+        //lecturers.map(lecturer =>{
+            //profiles.innerHTML +=  
+            //`<li>
+               // <h3>${lecturer.name}<h3/>
+                   // <span>Alder: ${2025 - lecturer.birthyear}</span>
+                    //<p>Kontor: ${lecturer.office}</p>
+                    //<a href="mailto: ${lecturer.mail}"">Skriv epost til ${lecturer.name}</a>
+                    
+                   // </li>`
+             lecturers.filter(lec => lec.birthyear >= 1990).map(lecturer => {
+                   profiles.innerHTML +=  
+            `<li>
+                <h3>${lecturer.name}<h3/>
+                    <span>Alder: ${2025 - lecturer.birthyear}</span>
+                    <p>Kontor: ${lecturer.office}</p>
+                    <a href="mailto: ${lecturer.mail}"">Skriv epost til ${lecturer.name}</a>
+                    
+                    </li>`
 
         })
 
+       
+
+        }) 
     </script>
 </body>
 </html>
