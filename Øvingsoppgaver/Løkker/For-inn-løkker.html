@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR-IN-LØKKER</title>
+</head>
+<body>
+    <ul id="Finne nøkkel"></ul>
+    <script>
+        const person = {
+            firstName: "Maria",
+            lastName: "Ulviksbakken",
+            age: 30,
+        }
+
+        for(let key in person){
+            console.log(key + ":" + person[key]);
+        }
+        document.getElementById("Finne nøkkel").innerHTML = ""
+    </script>
+</body>
+</html>
