@@ -35,6 +35,17 @@
 
         console.log(gangetabellen)
 
+        //sjekk om tall er delelig på z
+       
+        const x = 0
+        const z = 3
+        const y = 100
+        for(let teller = x; teller <= y; teller ++){
+            if(teller % z === 0){
+                console.log(`${teller}`)
+            }
+        }
+
 
 
         //for-in-løkker
@@ -82,22 +93,25 @@
         },
         {
             fName:"Ask",
-            birthyear:1994,
-            birthmonth:11,
-            birthday:19
+            birthyear: 1994,
+            birthmonth: 11,
+            birthday: 19
         },
         {
             fName:"Eik",
-            birthyear:2021,
-            birthmonth:7,
-            birthday:20
+            birthyear: 2021,
+            birthmonth: 7,
+            birthday: 20
         }
     ]
         for(let teller = 0; teller < famObj.length; teller++){
             if(date.month <= famObj[teller].birthmonth){
-                console.log(`${famObj[teller].fName}`)
+                console.log(`${famObj[teller].fName} fyller ${date.year - famObj[teller].birthyear} 
+                år i ${months[famObj[teller].bithmonth -1]}`)
+            
             }else{
-                console.log(`${famObj[teller].fName}`)
+                console.log(`${famObj[teller].fName} fylte ${date.year - famObj[teller].birthyear}
+                år i ${months[famObj[teller].birthmonth- 1]}`)
             }
         }
     </script>
