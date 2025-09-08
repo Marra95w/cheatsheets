@@ -28,7 +28,7 @@
         for(let n = 1; n <=10; n++){
             let row= []
             for(let i = 1; i <= 10; i++){
-                reow.push(n * i)
+                row.push(n * i)
             }
             gangetabellen.push(row)
         }
@@ -39,8 +39,8 @@
 
         //for-in-løkker
         const person = {
-            name: "Maria"
-            age: (new Date().getFyllYear) - 1990; 
+            name: "Maria",
+            age: (new Date().getFyllYear) - 1990, 
             location: "Halden"
         }
         for(let key in person){
@@ -69,31 +69,31 @@
         console.log(date)
 
         const famObj = [{
-            fName:"Thor"
+            fName:"Thor",
             birthyear:1990,
             birthmonth:7,
             birthday:10
         },
         {
-            fName:"Tora"
+            fName:"Tora",
             birthyear:1994,
             birthmonth:5,
             birthday:19
         },
         {
-            fName:"Ask"
+            fName:"Ask",
             birthyear:1994,
             birthmonth:11,
             birthday:19
         },
         {
-            fName:"Eik"
+            fName:"Eik",
             birthyear:2021,
             birthmonth:7,
             birthday:20
         }
     ]
-        for(let teller = 0; teller <= famObj.length; teller++){
+        for(let teller = 0; teller < famObj.length; teller++){
             if(date.month <= famObj[teller].birthmonth){
                 console.log(`${famObj[teller].fName}`)
             }else{
