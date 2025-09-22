@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brukerinput</title>
+</head>
+<body>
+    <!--Knapp med HTML atributt-->
+    <button onClick="printMessage(2025)">Try me</button>
+     <button id="printEventMessage">Trigger event</button>
+     <!--Skjema-->
+     
+        <label for name="name">
+            Name:
+            <input type="text" id="name"> 
+        </label>
+        <button id="sumbitform">Sumbit</button>
+    
+    <script>
+        //Knapp med EventListener//
+       
+        function printMessage(year){
+            console.log("Hei verden, året er " + year)
+        }
+
+        //knapp med eventlistener//
+        function printEventMessage(){
+            console.log("Hei, verden, igjen")
+        }
+
+        const eventBtn = document.getElementById("printEventMessage")
+
+        eventBtn.addEventListener("click", () => {
+            printEventMessage()
+        })
+
+        //Ta imot brukerinput fra skjemafelt//
+
+        function getUserInput(){
+            let getUserName = document.getElementById("name")
+            //console.log(getUsername).value//
+            userArray.push(getUserName.value)
+            console.log(userArray)
+            getUserName.value =""
+        }
+        const userArray = []
+
+        const sumbitform = document.getElementById("sumbitform")
+        sumbitform.addEventListener("click", () => {
+            getUserInput()
+        })
+
+    </script>
+</body>
+</html>
