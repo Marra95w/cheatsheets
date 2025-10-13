@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canvas</title>
+    <style>
+        #drawing-area{
+            border: 2px solid #000;
+        }
+    </style>
 </head>
 <body>
     <canvas id="drawing-area"></canvas>
@@ -13,6 +18,61 @@
 
         canvas.width = 800
         canvas.height = 600
+        
+        const rectangle = {
+            x: 300,
+            y: 250,
+            width: 200,
+            height: 100,
+        }
+
+        const circle = {
+            x: 400,
+            y: 400,
+            radius: 10,
+        }
+        ctx.beginPath() //Starte 
+        ctx.moveTo(0, 0) //starte streken - starter alltid på 0,0
+        ctx.lineTo(800, 600) //usynlig strek
+        ctx.moveTo(800, 0) //Flytter streken til angitt område
+        ctx.lineTo(0, 600) //linjen til
+        ctx.stroke() //Gjør streken synlig
+        ctx.closePath() //avslutte
+        
+        //tegne firkant
+        ctx.beginPath() 
+        //ctx.rect(300, 250, 200, 100) 
+        ctx.rect(rectangle.x, rectangle.y, rectangle.width, rectangle.height) 
+        ctx.fillStyle = "red" //fargen på "firkanten" - kun før fill eller stroke - elementene etter vil ha samme farge videre
+        ctx.fill() //fylle inn farge i elementet
+        ctx.stroke()
+        ctx.closePath()
+
+        //tegne sirkel
+        ctx.beginPath()
+        ctx.arc(circle.x, circle.y, circle.radius, 0, 2 * Math.PI)
+        ctx.fillStyle = "yellow" //gult innhold
+        ctx.fill()
+        ctx.fillStyle = "black" // svart strek rundt 
+        ctx.stroke()
+
+        //text
+        ctx.beginPath()
+        ctx.font = "150px, Arial"
+        ctx.strokeText("5", 360, 420)
+        ctx.font = "50px Helvetica"
+        ctx.fillStyle = "red"
+        ctx.fillText("Maria", 200, 200)
+        
+
+        //tegne eksisterende bilde i canvas
+        const pumpkin = new Image(128, 128)
+        let pumpkinLoaded = false //boolean - får laste innbilde?
+        pumpkin.onload = () => {
+            ctx.drawImage(pumpkin, 0, 0, 128, 128)
+        }
+        
+        pumpkin.src ="pumpkin.png"
     </script>
 </body>
 </html>
