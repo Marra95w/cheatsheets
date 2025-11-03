@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kollisjon: Sirkel ↔ Vegg + Rektangel</title>
+  <style>
+    html, body { height: 100%; margin: 0; background: #0b1020; color: #e2e8f0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    .wrap { display: grid; place-items: center; min-height: 100%; gap: 12px; padding: 16px; }
+    #cv { background: #0b1020; border: 2px solid #334155; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.35) }
+    .hint { opacity: .85; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <canvas id="cv" width="720" height="420"></canvas>
+    <div class="hint">
+      Ballen (sirkel) spretter mot kantene og mot rektangelet (blå blokk). Kollisjon løses ved å speile hastighet.
+    </div>
+  </div>
+
+  <script>
+    const cv = document.getElementById('cv');
+    const ctx = cv.getContext('2d');
+
+    // === Objekter ===
+    const ball = { x: 150, y: 100, r: 14, vx: 220, vy: 180, color: '#f87171' };
+    const block = { x: 260, y: 300, w: 200, h: 24, color: '#60a5fa' };
+
+    // === Hjelpefunksjoner ===
+    function drawGrid() {
+      ctx.save();
+      ctx.globalAlpha = 0.3;
+      ctx.strokeStyle = '#1f2937';
+      for (let x = 0; x <= cv.width; x += 40) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,cv.height); ctx.stroke(); }
+      for (let y = 0; y <= cv.height; y += 40) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(cv.width,y); ctx.stroke(); }
+      ctx.restore();
+    }
+
+    // Sjekk kollisjon sirkel↔vegg
+    function bounceWalls(b) {
+      if (b.x - b.r <= 0)        { b.x = b.r;               b.vx = Math.abs(b.vx); }
+      if (b.x + b.r >= cv.width) { b.x = cv.width - b.r;    b.vx = -Math.abs(b.vx); }
+      if (b.y - b.r <= 0)        { b.y = b.r;               b.vy = Math.abs(b.vy); }
+      if (b.y + b.r >= cv.height){ b.y = cv.height - b.r;   b.vy = -Math.abs(b.vy); }
+    }
+
+    // Kollisjon sirkel↔rektangel
+    function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+    function circleRectCollides(cx, cy, r, rx, ry, rw, rh) {
+      const nx = clamp(cx, rx, rx + rw);
+      const ny = clamp(cy, ry, ry + rh);
+      const dx = cx - nx;
+      const dy = cy - ny;
+      return (dx*dx + dy*dy) <= r*r;
+    }
+
+    // Løs kollisjon sirkel↔rektangel
+    function resolveCircleRect(b, rect) {
+      if (!circleRectCollides(b.x, b.y, b.r, rect.x, rect.y, rect.w, rect.h)) return false;
+
+      // Sjekk hvilken side som traff
+      const prevY = b.y - b.vy * 0.016; // grovt forrige posisjon (antatt 60fps)
+      const prevX = b.x - b.vx * 0.016;
+
+      const fromTop = prevY + b.r <= rect.y;
+      const fromBottom = prevY - b.r >= rect.y + rect.h;
+      const fromLeft = prevX + b.r <= rect.x;
+      const fromRight = prevX - b.r >= rect.x + rect.w;
+
+      if (fromTop) {
+        b.y = rect.y - b.r;
+        b.vy = -Math.abs(b.vy);
+      } else if (fromBottom) {
+        b.y = rect.y + rect.h + b.r;
+        b.vy = Math.abs(b.vy);
+      } else if (fromLeft) {
+        b.x = rect.x - b.r;
+        b.vx = -Math.abs(b.vx);
+      } else if (fromRight) {
+        b.x = rect.x + rect.w + b.r;
+        b.vx = Math.abs(b.vx);
+      } else {
+        // fallback: speil Y
+        b.vy *= -1;
+      }
+      return true;
+    }
+
+    let hitTimer = 0; // for blink ved treff
+
+    // === Animajsonssløyfe ===
+    let last = performance.now();
+    function loop(now) {
+      const dt = (now - last) / 1000; last = now;
+
+      // 1. Oppdater ballens posisjon
+      ball.x += ball.vx * dt;
+      ball.y += ball.vy * dt;
+
+      // 2. Kollisjon mot vegger
+      bounceWalls(ball);
+
+      // 3. Kollisjon mot rektangel
+      const hit = resolveCircleRect(ball, block);
+      if (hit) hitTimer = 0.15;
+
+      // 4. Tegn alt
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      drawGrid();
+
+      // Blokk
+      ctx.fillStyle = block.color;
+      ctx.fillRect(block.x, block.y, block.w, block.h);
+
+      // Ball
+      ctx.beginPath();
+      ctx.fillStyle = ball.color;
+      ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Blink ved treff
+      if (hitTimer > 0) {
+        ctx.save();
+        ctx.globalAlpha = hitTimer / 0.15;
+        ctx.strokeStyle = '#fef08a';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.r + 6, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.restore();
+        hitTimer -= dt;
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Familyage</title>
+</head>
+<body>
+    <!--gir en id man referer til-->
+    <p id="average"></p>
+    <script>
+        // Definer alder for hvert familiemedlem
+        const dad = 37
+        const mom = 32
+        const daughter = 7
+        const son = 2
+        // Kalkuler gjennomsnittsalder i familien
+        const totalAge = dad + mom + daughter + son 
+        // Kalkuler gjennomsnittsalder
+        const averageAge = totalAge / 4
+        // Skriv ut gjennomsnittsalder i familien
+        document.getElementById("average").innerHTML = averageAge + "gjennomsnittsalder i familen"
+    </script>
+</body>
+</html>
