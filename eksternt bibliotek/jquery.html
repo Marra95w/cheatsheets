@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+    <style>
+        section{
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 5px #000;
+            width: fit-content;
+            padding: 2rem;
+            gap: 1rem;
+            border-radius: .5rem;
+            
+            article{
+                box-shadow: 0 0 5px #fff;
+                padding: 2rem;
+                border-radius: .5rem;
+            }
+            button{
+                padding: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <article>
+            <h1>Første overskrift</h1>
+            <p>Avsnitt med noe spennende innhold</p>
+            <button id="add">Endre første overskrift</button>
+        </article>
+         <article>
+            <h1>Andre overskrift</h1>
+            <p>Avsnitt med noe spennende innhold</p>
+            <button id="overskirft2">Endre første overskrift</button>
+        </article> 
+        <article>
+            <h1>Tredje overskrift</h1>
+            <p>Avsnitt med noe spennende innhold</p>
+            <button id="overskrift3">Endre første overskrift</button>
+        </article>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+    crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(() =>{
+            $("section article:nth-child(1)").css("background-color", "gray")
+            //legge til selector # + add som er button id 
+            $("#add").click(() => {
+                console.log("knappen er trykket")
+                //h1 på slutten endrer texten, men fortsetter å holde samme størrelse på elementet
+                $("section article:nth-child(1) h1").text("første overskrift er endret")
+            })
+            $("#overskirft2").click(() =>{
+                console.log("2 knapp er trykket")
+                $("section article:nth-child(2) h1").css("background-color", "red")
+                $("section article:nth-child(2) h1").text("Hurra, du har trykket her")
+            })
+            $("#overskrift3").click(() =>{
+                console.log("2 knapp er trykket")
+                $("section article:nth-child(3) h1").css("background-color", "violet")
+                $("section article:nth-child(3) h1").text("Du er her, nr 3")
+        })
+    })
+    
+    </script>
+</body>
+</html>
